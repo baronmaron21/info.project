@@ -5,27 +5,21 @@
     <title>Arduino Motorsteuerung</title>
     <!-- Socket.IO wird direkt vom Server geladen (nicht über CDN) -->
     <script src="/socket.io/socket.io.js"></script>
-    <link href="styles.css" type="text/css" rel="stylesheet">
+    
     <style>
       body { font-family: Arial, sans-serif; text-align:center; margin-top:40px; }
-      input[type=range] { width: 300px; margin-top: 20px; cursor: pointer; }
+      input[type=number] { width: 80px; font-size:16px; padding:4px; }
       button { padding:6px 12px; font-size:16px; cursor:pointer; }
       #log { margin-top:20px; color:#333; }
-
-      #valueDisplay {font-weight: bold;
-      font-size: 18px;
-      margin-top: 10px; 
-      }
+      
     </style>
   </head>
   
   <body>
     <h1>Motorsteuerung (0–255)</h1>
     
-    <p>Wähle ein Wert mit dem Schieberegler und klicke auf <strong>Senden</strong>:</p>
-    <input id="speedRange" type="range" min="0" max="255" value="0" />
-    <div id="valueDisplay">Aktueller Wert: 0</div>
-    
+    <p>Gib eine Wert ein und klicke auf <strong>Senden</strong>:</p>
+    <input id="speedInput" type="number" min="0" max="255" value="0" />
     <button id="sendBtn">Senden</button>
 
     <div id="log"></div>
@@ -33,14 +27,9 @@
     <script>
       const socket = io(); // <--- nur einmal definieren
 
-      const input = document.getElementById('speedRange');
+      const input = document.getElementById('speedInpt');
       const btn = document.getElementById('sendBtn');
       const log = document.getElementById('log');
-      const valueDisplay = document.getElementById('valueDisplay');
-
-      range.addEventListener('input', () => {
-        valueDisplay.textContent = 'Aktueller Wert: ' + range.value;
-      });
 
       btn.addEventListener('click', () => {
         const val = range.value;
